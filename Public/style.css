@@ -1,0 +1,36 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.login-form-box{
+    width: 32rem;
+    height: auto;
+    padding: 30px;
+    border: 1px solid rgb(95, 88, 88);
+    box-sizing: border-box;
+    border-radius: 10px;
+    
+}
+.login-form{
+    width: 28rem;
+    height: 20rem;
+}
+
+.submit-button{
+    width: 20rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.have-an-account{
+    font-size: small;
+}
