@@ -1,6 +1,6 @@
 <%- include('header') -%>
 <div class="login-form-box">
-  <form class="mx-1 mx-md-4 m-3 d-flex flex-column align-items-center" action="/signup" method="POST">
+  <form class="mx-1 mx-md-4 m-3 d-flex flex-column align-items-center" action="user/signup" method="POST">
     <div class="d-flex flex-column align-items-center">
       <h2 class="font-weight-bold">Signup Page</h2>
       <h4 style="font-size: small;">Signup for new user</h4>
@@ -34,6 +34,11 @@
         <div class="form-outline flex-fill mb-0">
           <label class="form-label" for="form3Example4cd">Repeat your password</label>
           <input name="repeateSPassword" type="password" id="form3Example4cd" class="form-control" required>
+          
+          <% if(locals.checkPassword){ %>
+            <p class="text-danger">Password doesn't match</p>
+          <% } %>
+
         </div>
       </div>
 
@@ -47,7 +52,7 @@
       <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 d-flex flex-column align-items-center">
         <button type="submit" class="btn btn-primary btn-lg submit-button mb-3">Register</button>
         <div class="mb-3 have-an-account">
-          <a href="/haveAnAccount">Already have an account</a>
+          <a href="user/haveAnAccount">Already have an account</a>
         </div>
       </div>
 
