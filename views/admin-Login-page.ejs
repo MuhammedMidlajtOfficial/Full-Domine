@@ -1,7 +1,8 @@
 <%- include('header') -%>
+<button class="btn btn-secondary me-5"><a href="/" class="text-white" style="text-decoration: none;">Back</a></button>
 
 <div class="login-form-box">
-    <form class="login-form d-flex flex-column align-items-center" action="admin/adminLogin" method="POST">
+    <form class="login-form d-flex flex-column align-items-center" action="/admin/adminLogin" method="POST">
       <div class="d-flex flex-column align-items-center">
         <h2 class="font-weight-bold">Admin Login Page</h2>
         <h4 style="font-size: small;">Login for the existing admin</h4>
@@ -17,7 +18,7 @@
           <label for="exampleInputEmail1" class="form-label">Email address</label>
           <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 mb-5">
           <label for="exampleInputPassword1" class="form-label">Password</label>
           <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
         </div>

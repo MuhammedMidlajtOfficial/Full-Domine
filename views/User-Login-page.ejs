@@ -1,7 +1,8 @@
 <%- include('header') -%>
+<button class="btn btn-secondary me-5"><a href="/" class="text-white" style="text-decoration: none;">Back</a></button>
 
 <div class="login-form-box">
-    <form class="login-form d-flex flex-column align-items-center" action="user/login" method="POST">
+    <form class="login-form d-flex flex-column align-items-center" action="/user/login" method="POST">
       <div class="d-flex flex-column align-items-center">
         <h2 class="font-weight-bold">User Login Page</h2>
         <h4 style="font-size: small;">Login for the existing user</h4>
@@ -27,7 +28,7 @@
         <div class="login-form-bottom d-flex flex-column align-items-center">
           <button type="submit" class="btn btn-primary submit-button mb-3">Submit</button>
           <div class="mb-3 have-an-account">
-            <a href="user/dontHaveAnAccount">Don't have an account</a>
+            <a href="/user/dontHaveAnAccount">Don't have an account</a>
           </div>
         </div>
       </div>

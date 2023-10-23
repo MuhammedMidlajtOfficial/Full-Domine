@@ -1,9 +1,13 @@
 <%- include('header') -%>
 
-<div class="d-flex">
-    <h1>Welcome</h1>
-    <button class="btn btn-primary"><a href="/user" class="text-white" style="text-decoration: none;">USER</a></button>
-    <button class="btn btn-primary"><a href="/admin" class="text-white" style="text-decoration: none;">ADMIN</a></button>
+<div class="d-flex flex-column">
+    <div>
+        <h1 class="me-5" style="font-size: 3rem;font-weight: bolder;">Welcome</h1>
+    </div>
+    <div>
+        <button class="btn btn-secondary me-5"><a href="/user" class="text-white" style="text-decoration: none;">USER</a></button>
+        <button class="btn btn-primary"><a href="/admin" class="text-white" style="text-decoration: none;">ADMIN</a></button>
+    </div>
 </div>
 
 <%- include('footer') -%>

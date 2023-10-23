@@ -2,30 +2,29 @@
 <div class="main">
     <div class="left">
         <h1>Admin Dashboard</h1>
-        <button class="btn btn-danger"><a href="admin/adminLogout" class="text-white" style="text-decoration: none;">Logout</a></button>
+        <button class="btn btn-danger"><a href="/admin/adminLogout" class="text-white" style="text-decoration: none;">Logout</a></button>
     </div>
     <div class="right mt-5">
         
         <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Password</th>
-                <th></th>
-                <th></th>
+                <th scope="col"><b>Name</b></th>
+                <th scope="col"><b>Email</b></th>
+                <th scope="col"><b>Password</b></th>
+                <th scope="col"><b>Action</b></th>
               </tr>
             </thead>
             <tbody>
-                <% for(let i=0;i<= data.limit ;i++){ %>
+                <% for(let i=0 ; i < data.length ; i++) { %>
                     <tr>
-                        <td>  </td>
-                        <td> <%- data.name %> </td>
-                        <td> <%- data.email %> </td>
-                        <td> <%- data.password %> </td>
-                        <td> <button class="btn btn-info">Edit</button></td>
-                        <td> <button class="btn btn-danger">Delete</button></td>
+                        <td> <%= data[i].name %> </td>
+                        <td> <%= data[i].email %> </td>
+                        <td> <%= data[i].password %> </td>
+                        <td> 
+                            <button class="btn btn-info"><a href="/admin/editUser?id=<%= data[i]._id %>" class="text-white" style="text-decoration: none;">Edit</a></button>
+                            <button class="btn btn-danger"><a href="/admin/deleteUser?id=<%= data[i]._id %>" class="text-white" style="text-decoration: none;">Delete</a></button>
+                        </td>
                     </tr>
                 <% } %>
             </tbody>

@@ -22,15 +22,3 @@ module.exports.redirectToDashboard = (req,res,next)=>{
         next()
     }
 }
-
-
-
-// module.exports.isAdmin = (req,res,next)=>{
-//     if(req.body.email == credential.adminEmail && req.body.password == credential.adminPassword){
-//         req.session.admin = req.body.email;
-//         console.log('Admin logged in');
-//         res.redirect('admin/adminLogin')
-//     }else{
-//         next()
-//     }
-// }

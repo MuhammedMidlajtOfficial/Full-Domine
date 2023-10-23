@@ -1,15 +1,15 @@
 <%- include('header') -%>
 <div class="login-form-box">
-  <form class="mx-1 mx-md-4 m-3 d-flex flex-column align-items-center" action="/user/signup" method="POST">
+  <form class="mx-1 mx-md-4 m-3 d-flex flex-column align-items-center" action="/admin/userUpdate?id=<%= userData._id %>" method="POST">
     <div class="d-flex flex-column align-items-center">
-      <h2 class="font-weight-bold">Signup Page</h2>
-      <h4 style="font-size: small;">Signup for new user</h4>
+      <h2 class="font-weight-bold">User Update Page</h2>
+      <h4 style="font-size: small;">Update <%= userData.name %>'s data</h4>
     </div>
       <div class="d-flex flex-row align-items-center mb-4">
         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
         <div class="form-outline flex-fill mb-0">
           <label class="form-label" for="form3Example1c">Your Name</label>
-          <input name="sName" type="text" id="form3Example1c" class="form-control" required>
+          <input name="sName" type="text" id="form3Example1c" class="form-control" value="<%= userData.name %>" required>
         </div>
       </div>
 
@@ -17,15 +17,15 @@
         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
         <div class="form-outline flex-fill mb-0">
           <label class="form-label" for="form3Example3c">Your Email</label>
-          <input name="sMail" type="email" id="form3Example3c" class="form-control" required>
+          <input name="sMail" type="email" id="form3Example3c" class="form-control" value="<%= userData.email %>" required>
         </div>
       </div>
 
       <div class="d-flex flex-row align-items-center mb-4">
         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
         <div class="form-outline flex-fill mb-0">
-          <label class="form-label" for="form3Example4c">Password</label>
-          <input name="sPassword" type="password" id="form3Example4c" class="form-control" required>
+          <label class="form-label" for="form3Example4c">New Password</label>
+          <input name="sPassword" type="password" id="form3Example4c" class="form-control" value="<%= userData.password %>" required>
         </div>
       </div>
 
@@ -33,7 +33,7 @@
         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
         <div class="form-outline flex-fill mb-0">
           <label class="form-label" for="form3Example4cd">Repeat your password</label>
-          <input name="repeateSPassword" type="password" id="form3Example4cd" class="form-control" required>
+          <input name="repeateSPassword" type="password" id="form3Example4cd" class="form-control" value="<%= userData.password %>" required>
           
           <% if(locals.checkPassword){ %>
             <p class="text-danger">Password doesn't match</p>
@@ -42,18 +42,8 @@
         </div>
       </div>
 
-      <div class="form-check d-flex justify-content-center mb-3">
-        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" required>
-        <label class="form-check-label" for="form2Example3">
-          I agree all statements in <a href="#!">Terms of service</a>
-        </label>
-      </div>
-
       <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 d-flex flex-column align-items-center">
         <button type="submit" class="btn btn-primary btn-lg submit-button mb-3">Register</button>
-        <div class="mb-3 have-an-account">
-          <a href="/user/haveAnAccount">Already have an account</a>
-        </div>
       </div>
 
   </form>

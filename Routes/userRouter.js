@@ -33,7 +33,7 @@ userRouter.get('/dontHaveAnAccount',(req,res)=>{
 
 //Already have an account
 userRouter.get('/haveAnAccount',(req,res)=>{
-    res.redirect('/')
+    res.redirect('/user')
 })
 
 userRouter.post('/login', async (req,res)=>{
@@ -46,11 +46,11 @@ userRouter.post('/login', async (req,res)=>{
                 console.log(req.session.user,'LoggedIn');
             }else{
                 invalidId = true;
-                res.redirect('/')
+                res.redirect('/user')
             }
         }else{
             invalidId = true;
-            res.redirect('/')
+            res.redirect('/user')
         }
     } catch (error) {
         console.log(error);
@@ -61,7 +61,7 @@ userRouter.get('/userDashboard',(req,res)=>{
     if(req.session.user){
         res.render('userDashboard',{title:'Dashboard'})
     }else{
-        res.redirect('/')
+        res.redirect('/user')
     }
 })
 
@@ -78,13 +78,6 @@ userRouter.get('/userLogout',auth.isLogin,(req,res)=>{
     })
 })
 
-// userRouter.get('/userLogout',(req,res)=>{
-//     req.session.user = null;
-//     loggedOut = true;
-//     console.log(req.session,'logged Out done');
-//     res.redirect('/user')
-// })
-
 //signup form
 
 userRouter.post('/signup', async (req,res)=>{
@@ -98,7 +91,7 @@ userRouter.post('/signup', async (req,res)=>{
 
             await userData.save();
             newUserAdded = true;
-            res.redirect('/')
+            res.redirect('/user')
         }else{
             res.render('Signup-page',{title:'Signup page',checkPassword : true})
         }
@@ -106,17 +99,5 @@ userRouter.post('/signup', async (req,res)=>{
         res.status(400).send(error)
     }
 })
-
-// userRouter.get('/adminLogout',(req,res)=>{
-//     req.session.destroy((error)=>{
-//         if (error) {
-//             console.log(error);
-//             res.send('Error occured')
-//         } else {
-//             loggedOut = true;
-//             res.redirect('/')
-//         }
-//     })
-// })
 
 module.exports = userRouter
