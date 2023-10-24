@@ -73,18 +73,24 @@ adminRouter.get('/editUser',async (req,res)=>{
 
 adminRouter.post('/userUpdate', async (req,res)=>{
     const id = req.query.id;
-    await Register.updateOne(
-        { _id : id },
-        {
-            $set :{
-                name : req.body.name,
-                email : req.body.email,
-                password : req.body.password
+    const user = await Register.find({ _id : id });
+    const userData = user[0];
+    if(req.body.uPassword === req.body.repeateUPassword){
+        await Register.updateOne(
+            { _id : id },
+            {
+                $set :{
+                    name : req.body.uName,
+                    email : req.body.uMail,
+                    password : req.body.uPassword
+                }
             }
-        }
-    )
-    const data = await Register.find({});
-    res.render('AdminDashboard',{ title : 'Admin Dashboard' , data})
+        )
+        const data = await Register.find({});
+        res.render('AdminDashboard',{ title : 'Admin Dashboard' , data})
+    } else {
+        res.render('userUpdate',{title : 'User Update Page' , checkPassword : true , userData })
+    }
 })
 
 module.exports = adminRouter;

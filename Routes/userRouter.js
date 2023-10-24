@@ -42,7 +42,8 @@ userRouter.post('/login', async (req,res)=>{
         if(userEmail){
             if (userEmail.password === req.body.password) {
                 req.session.user = req.body.email;
-                res.redirect('/userDashboard')
+                // res.redirect('/userDashboard')
+                res.render('userDashboard',{title:'Dashboard'})
                 console.log(req.session.user,'LoggedIn');
             }else{
                 invalidId = true;
@@ -59,7 +60,7 @@ userRouter.post('/login', async (req,res)=>{
 
 userRouter.get('/userDashboard',(req,res)=>{
     if(req.session.user){
-        res.render('userDashboard',{title:'Dashboard'})
+        res.render('userDashboard',{title:'Dashboard' , userMail : req.session.user})
     }else{
         res.redirect('/user')
     }

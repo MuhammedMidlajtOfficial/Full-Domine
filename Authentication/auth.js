@@ -9,7 +9,7 @@ module.exports.isLogin = (req,res,next)=>{
 module.exports.isAdminLogin = (req,res,next)=>{
     if(req.session.admin){
         // next();
-        res.redirect('admin/adminLogin')
+        res.redirect('admin/adminDashboard')
     }else{
         next()
     }
