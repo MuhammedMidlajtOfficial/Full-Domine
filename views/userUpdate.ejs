@@ -10,6 +10,9 @@
         <div class="form-outline flex-fill mb-0">
           <label class="form-label" for="form3Example1c">Your Name</label>
           <input name="uName" type="text" id="form3Example1c" class="form-control" value="<%= userData.name %>" required>
+          <% if( locals.fillUNameField ) { %>
+            <p class="text-danger mb-0">Enter valid name</p>
+          <% } %>
         </div>
       </div>
 
@@ -26,6 +29,9 @@
         <div class="form-outline flex-fill mb-0">
           <label class="form-label" for="form3Example4c">New Password</label>
           <input name="uPassword" type="password" id="form3Example4c" class="form-control" value="<%= userData.password %>" required>
+          <% if( locals.fillUPasswordField ) { %>
+            <p class="text-danger mb-0">Enter valid password</p>
+          <% } %>
         </div>
       </div>
 

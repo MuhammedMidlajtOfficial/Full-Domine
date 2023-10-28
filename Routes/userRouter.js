@@ -1,104 +1,16 @@
 const express = require('express');
 const userRouter = express.Router();
 const auth = require('../Authentication/auth');
-const session = require('express-session');
-
-require('../DB/dataBase')
-const Register = require('../Model/registers');
-
-let loggedOut = false;
-let invalidId = false;
-let newUserAdded = false;
+const userController = require('../Controllers/userController')
 
 //Login page
-userRouter.get('/',auth.redirectToDashboard,(req,res)=>{
-    if(loggedOut){
-        res.render('User-Login-page',{title:'Login page', LogOut :true})
-        loggedOut = false;
-        invalidId = false;
-        newUserAdded = false;
-    }else if(invalidId){
-        res.render('User-Login-page',{title:'Login page', wrongCredential :true})
-    }else if(newUserAdded){
-        res.render('User-Login-page',{title:'Login page', addNewUser :true})
-    }else{
-        res.render('User-Login-page',{title:'Login page', wrongCredential :false})
-    }
-})
-
-//Don't have an account
-userRouter.get('/dontHaveAnAccount',(req,res)=>{
-    res.render('Signup-page',{title:'Signup page'})
-})
-
-//Already have an account
-userRouter.get('/haveAnAccount',(req,res)=>{
-    res.redirect('/user')
-})
-
-userRouter.post('/login', async (req,res)=>{
-    try {
-        const userEmail = await Register.findOne({email : req.body.email})
-        if(userEmail){
-            if (userEmail.password === req.body.password) {
-                req.session.user = req.body.email;
-                // res.redirect('/userDashboard')
-                res.render('userDashboard',{title:'Dashboard'})
-                console.log(req.session.user,'LoggedIn');
-            }else{
-                invalidId = true;
-                res.redirect('/user')
-            }
-        }else{
-            invalidId = true;
-            res.redirect('/user')
-        }
-    } catch (error) {
-        console.log(error);
-    }
-})
-
-userRouter.get('/userDashboard',(req,res)=>{
-    if(req.session.user){
-        res.render('userDashboard',{title:'Dashboard' , userMail : req.session.user})
-    }else{
-        res.redirect('/user')
-    }
-})
-
-userRouter.get('/userLogout',auth.isLogin,(req,res)=>{
-    req.session.destroy((err)=>{
-        if(err){
-            console.log(err);
-            res.send('Error occured')
-        }else{
-            loggedOut = true;
-            console.log('logged Out done');
-            res.redirect('/user')
-        }
-    })
-})
-
+userRouter.get('/',auth.redirectToDashboard,userController.isUser)
+userRouter.post('/login',userController.postLogin)
+userRouter.get('/userDashboard',auth.isUserExist,auth.isUserLogin,userController.getUserDashboard)
+userRouter.get('/userLogout',auth.isUserLogin,userController.getUserLogout)
+userRouter.get('/userNotExist',userController.getUserNotExist)
 //signup form
-
-userRouter.post('/signup', async (req,res)=>{
-    try {
-        if(req.body.sPassword === req.body.repeateSPassword){
-            let userData = new Register({
-                name : req.body.sName,
-                email : req.body.sMail,
-                password : req.body.sPassword,
-            })
-
-            await userData.save();
-            newUserAdded = true;
-            res.redirect('/user')
-        }else{
-            res.render('Signup-page',{title:'Signup page',checkPassword : true})
-        }
-    } catch (error) {
-        res.status(400).send(error)
-    }
-})
+userRouter.get('/signup',userController.getSignup)
+userRouter.post('/postSignup',userController.postSignup)
 
 module.exports = userRouter

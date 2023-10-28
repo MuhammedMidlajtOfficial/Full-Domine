@@ -4,8 +4,12 @@
         <h1>Admin Dashboard</h1>
         <button class="btn btn-danger"><a href="/admin/adminLogout" class="text-white" style="text-decoration: none;">Logout</a></button>
     </div>
+    <form class="form-inline mt-5 d-flex flex-column" action="/admin/search" method="post">
+      <input class="form-control mb-3" style="width: auto;" type="search" name="search" placeholder="Search..." required>
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    <button class="btn btn-outline-primary mt-3" type="button" style="background-color: blue;"><a href="/admin/clearSearch" style="text-decoration: none; color: #fff; ">Clear Search</a></button>
     <div class="right mt-5">
-        
         <table class="table table-striped">
             <thead>
               <tr>
@@ -23,16 +27,39 @@
                         <td> <%= data[i].password %> </td>
                         <td> 
                             <button class="btn btn-info"><a href="/admin/editUser?id=<%= data[i]._id %>" class="text-white" style="text-decoration: none;">Edit</a></button>
-                            <button class="btn btn-danger"><a href="/admin/deleteUser?id=<%= data[i]._id %>" class="text-white" style="text-decoration: none;">Delete</a></button>
+                            <button class="btn btn-danger"><a data-userid='<%= data[i]._id %>' class="text-white delete" style="text-decoration: none;">Delete</a></button>
                         </td>
                     </tr>
                 <% } %>
             </tbody>
           </table>
-
     </div>
 </div>
 
 
 
 <%- include('footer') -%>
+
+<script>
+  function deleteConfirmation(){
+    return confirm("Want to delete?");
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const deleteButton = document.querySelectorAll('.delete');
+
+    deleteButton.forEach((elem)=>{
+      elem.addEventListener('click',()=>{
+      const queryValue = deleteConfirmation();
+      const userId = elem.dataset.userid;
+
+      if(queryValue){
+        const url = "/admin/deleteUser?id="+userId+"&confirmation=" + encodeURIComponent(queryValue);
+        elem.href = url;
+      }else{
+        console.log('Confirmation : false');
+      }
+    })
+    })
+  })
+</script>

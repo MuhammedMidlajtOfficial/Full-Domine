@@ -15,6 +15,9 @@
         <% if(locals.addNewUser){ %>
           <div class="alert alert-info">New user added!!!</div>
         <% } %>
+        <% if(locals.UserNotExist){ %>
+          <div class="alert alert-danger">User does not exist</div>
+        <% } %>
       </div>
       <div>
         <div class="mb-3">
@@ -28,7 +31,7 @@
         <div class="login-form-bottom d-flex flex-column align-items-center">
           <button type="submit" class="btn btn-primary submit-button mb-3">Submit</button>
           <div class="mb-3 have-an-account">
-            <a href="/user/dontHaveAnAccount">Don't have an account</a>
+            <a href="/user/signup">Don't have an account</a>
           </div>
         </div>
       </div>

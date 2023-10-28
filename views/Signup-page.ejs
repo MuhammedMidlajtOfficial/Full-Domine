@@ -1,61 +1,109 @@
+
+
 <%- include('header') -%>
 <div class="login-form-box">
-  <form class="mx-1 mx-md-4 m-3 d-flex flex-column align-items-center" action="/user/signup" method="POST">
+  <form class="mx-1 mx-md-4 m-3 d-flex flex-column align-items-center" action="/user/postSignup" method="post">
     <div class="d-flex flex-column align-items-center">
       <h2 class="font-weight-bold">Signup Page</h2>
       <h4 style="font-size: small;">Signup for new user</h4>
     </div>
-      <div class="d-flex flex-row align-items-center mb-4">
-        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-        <div class="form-outline flex-fill mb-0">
-          <label class="form-label" for="form3Example1c">Your Name</label>
-          <input name="sName" type="text" id="form3Example1c" class="form-control" required>
-        </div>
+    
+    <div class="d-flex flex-row align-items-center mb-4">
+      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+      <div class="form-outline flex-fill mb-0">
+        <label class="form-label" for="sName">Your Name</label>
+        <input name="sName" type="text" id="sName" class="form-control" >
+        <!-- fillSNameField -->
+        <p class="text-danger mb-0" id="fillSNameField" style="display: none;">Please enter valid name</p>
+        <!-- fillSNameField -->
       </div>
-
-      <div class="d-flex flex-row align-items-center mb-4">
-        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-        <div class="form-outline flex-fill mb-0">
-          <label class="form-label" for="form3Example3c">Your Email</label>
-          <input name="sMail" type="email" id="form3Example3c" class="form-control" required>
-        </div>
+    </div>
+    <div class="d-flex flex-row align-items-center mb-4">
+      <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+      <div class="form-outline flex-fill mb-0">
+        <label class="form-label" for="sMail">Your Email</label>
+        <input name="sMail" type="email" id="sMail" class="form-control">
+        <!-- fillSMailField -->
+        <p class="text-danger mb-0" id="fillSMailField" style="display: none;">Please enter valid email</p>
+        <!-- fillSMailField -->
       </div>
-
-      <div class="d-flex flex-row align-items-center mb-4">
-        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-        <div class="form-outline flex-fill mb-0">
-          <label class="form-label" for="form3Example4c">Password</label>
-          <input name="sPassword" type="password" id="form3Example4c" class="form-control" required>
-        </div>
+    </div>
+    <div class="d-flex flex-row align-items-center mb-4">
+      <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+      <div class="form-outline flex-fill mb-0">
+        <label class="form-label" for="sPassword">Password</label>
+        <input name="sPassword" type="password" id="sPassword" class="form-control" >
+        <!-- fillSPasswordField -->
+          <p class="text-danger mb-0" id="fillSPasswordField" style="display: none;">Please enter valid password</p>
+        <!-- fillSPasswordField -->
       </div>
-
-      <div class="d-flex flex-row align-items-center mb-4">
-        <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-        <div class="form-outline flex-fill mb-0">
-          <label class="form-label" for="form3Example4cd">Repeat your password</label>
-          <input name="repeateSPassword" type="password" id="form3Example4cd" class="form-control" required>
-          
-          <% if(locals.checkPassword){ %>
-            <p class="text-danger">Password doesn't match</p>
-          <% } %>
-
-        </div>
+    </div>
+    <div class="d-flex flex-row align-items-center mb-4">
+      <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+      <div class="form-outline flex-fill mb-3">
+        <label class="form-label" for="repeateSPassword">Repeat your password</label>
+        <input name="repeateSPassword" type="password" id="repeateSPassword" class="form-control" >
+        <!-- checkPassword -->
+        <p class="text-danger mb-3" id="checkPassword" style="display: none;">Password doesn't match</p>
+        <!-- checkPassword -->
       </div>
-
-      <div class="form-check d-flex justify-content-center mb-3">
-        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" required>
-        <label class="form-check-label" for="form2Example3">
-          I agree all statements in <a href="#!">Terms of service</a>
-        </label>
+    </div>
+    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 d-flex flex-column align-items-center">
+      <button type="submit" class="btn btn-primary btn-lg submit-button mb-3 submit" >Register</button>
+      <div class="mb-0 have-an-account">
+        <a href="/user">Already have an account</a>
       </div>
-
-      <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 d-flex flex-column align-items-center">
-        <button type="submit" class="btn btn-primary btn-lg submit-button mb-3">Register</button>
-        <div class="mb-3 have-an-account">
-          <a href="/user/haveAnAccount">Already have an account</a>
-        </div>
-      </div>
-
+    </div>
   </form>
 </div>
 <%- include('footer') -%>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector('form[action="/user/postSignup"]').addEventListener("submit", function(event) {
+      const sName = document.getElementById('sName').value;
+      const sMail = document.getElementById('sMail').value;
+      const sPassword = document.getElementById('sPassword').value;
+      const repeateSPassword = document.getElementById('repeateSPassword').value;
+
+      // sName
+      if (sName.trim() == "") {
+        document.getElementById('fillSNameField').style.display = "block";
+        event.preventDefault(); // Prevent form submission
+      }else{
+        document.getElementById('fillSNameField').style.display = "none" ;
+      }
+
+      // sMail
+      if (sMail.trim() === "" || !isValidEmail(sMail)) {
+        document.getElementById('fillSMailField').style.display = "block";
+        event.preventDefault(); // Prevent form submission
+      }else{
+        document.getElementById('fillSMailField').style.display = "none" ;
+      }
+
+      // sPassword
+      if (sPassword.trim() === "") {
+        document.getElementById('fillSPasswordField').style.display = "block";
+        event.preventDefault(); // Prevent form submission
+      }else{
+        document.getElementById('fillSPasswordField').style.display = "none" ;
+      }
+
+      // checkPassword
+      if (sPassword !== repeateSPassword) {
+        document.getElementById('checkPassword').style.display = "block";
+        event.preventDefault(); // Prevent form submission
+      }else{
+        document.getElementById('checkPassword').style.display = "none" ;
+      }
+
+    });
+
+    function isValidEmail(email) {
+      const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      return regex.test(email);
+    }
+  });
+</script>
