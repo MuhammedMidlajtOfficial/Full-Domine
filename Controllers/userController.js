@@ -68,16 +68,20 @@ module.exports.getUserLogout = (req,res)=>{
 }
 
 module.exports.postSignup =  async (req,res)=>{
-    console.log('redirect to postSignup');
     try {
-        let userData = new Register({
-            name : req.body.sName,
-            email : req.body.sMail,
-            password : req.body.sPassword,
-        })
-        await userData.save();
-        newUserAdded = true;
-        res.redirect('/user')
+        const data = await Register.find({ email : req.body.sMail })
+        if(data && data.length > 0){
+            res.render('Signup-page',{ title : "Signup page" , userAlreadyExist : true })
+        } else {
+            let userData = new Register({
+                name : req.body.sName,
+                email : req.body.sMail,
+                password : req.body.sPassword,
+            })
+            await userData.save();
+            newUserAdded = true;
+            res.redirect('/user')
+        }
     } catch (error) {
         res.status(400).send(error)
     }
