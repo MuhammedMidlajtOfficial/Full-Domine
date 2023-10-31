@@ -4,9 +4,9 @@ const auth = require('../Authentication/auth');
 const userController = require('../Controllers/userController')
 
 //Login page
-userRouter.get('/',auth.redirectToDashboard,userController.isUser)
+userRouter.get('/',userController.isUser)
 userRouter.post('/login',userController.postLogin)
-userRouter.get('/userDashboard',auth.isUserExist,auth.isUserLogin,userController.getUserDashboard)
+userRouter.get('/userDashboard',auth.isUserExist,userController.getUserDashboard)
 userRouter.get('/userLogout',auth.isUserLogin,userController.getUserLogout)
 userRouter.get('/userNotExist',userController.getUserNotExist)
 //signup form

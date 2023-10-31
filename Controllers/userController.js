@@ -47,11 +47,7 @@ module.exports.postLogin =  async (req,res)=>{
 }
 
 module.exports.getUserDashboard = (req,res)=>{
-    if(req.session.user){
         res.render('userDashboard',{title:'Dashboard' , userMail : req.session.user })
-    }else{
-        res.redirect('/user')
-    }
 }
 
 module.exports.getUserLogout = (req,res)=>{

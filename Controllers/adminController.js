@@ -1,4 +1,5 @@
 const Register = require('../Model/registers')
+const session = require('express-session');
 
 let loggedOut = false;
 let invalidId = false;
@@ -10,7 +11,7 @@ const credential = {
 
 module.exports.isAdmin = (req,res)=>{
     if (req.session.admin) {
-        res.redirect('/adminDashboard')
+        res.redirect('/admin/adminDashboard')
     } else {
         if(loggedOut){
             res.render('admin-Login-page',{title:'Login page', LogOut :true})
@@ -36,13 +37,9 @@ module.exports.postAdminLogin = (req,res)=>{
 }
 
 module.exports.getAdminDashboard = async (req,res)=>{
-    if(req.session.admin){
-        const data = await Register.find({})
-        res.render('AdminDashboard',{title : 'Admin Dashboard', data })
-        console.log("Admin Logged in")
-    } else {
-        res.redirect('/admin')
-    }
+    const data = await Register.find({})
+    res.render('AdminDashboard',{title : 'Admin Dashboard', data })
+    console.log("Admin Logged in")
 }
 
 module.exports.getAdminLogout = (req,res)=>{

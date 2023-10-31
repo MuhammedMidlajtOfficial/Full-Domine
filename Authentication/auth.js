@@ -1,10 +1,11 @@
 const Register = require('../Model/registers')
+const session = require('express-session');
 
 module.exports.isUserLogin = (req,res,next)=>{
     if(req.session.user){
-        next()
+        next();
     }else{
-        res.redirect('/user')
+        return res.redirect('/user')
     }
 } 
 
@@ -22,13 +23,5 @@ module.exports.isAdminLogin = (req,res,next)=>{
         next();
     }else{
         res.redirect('/admin')
-    }
-}
-
-module.exports.redirectToDashboard = (req,res,next)=>{
-    if(req.session.user){
-        res.redirect('/user/userDashboard')
-    }else{
-        next()
     }
 }
